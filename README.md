@@ -4,3 +4,5 @@
 * [Tech Stack](#tech-stack)
 
 ## Tech Stack
+* React
+* TFL API
