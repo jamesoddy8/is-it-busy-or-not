@@ -1,11 +1,12 @@
  // document for react-geo: https://terrestris.github.io/react-geo-ws/map-integration/nominatim-search.html
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import OlMap from 'ol/Map';
 import OlView from 'ol/View';
 import OlLayerTile from 'ol/layer/Tile';
 import OlSourceOsm from 'ol/source/OSM';
+import * as _proj from "ol/proj";
 
 import { Drawer } from 'antd';
 
@@ -37,43 +38,68 @@ const map = new OlMap({
 
 function App() {
   const [visible, setVisible] = useState(false);
+  const [currentLonLat, setCurrentLonLat] = useState({ lon: "0", lat: "0" });
 
   const toggleDrawer = () => {
   setVisible(!visible);
-}
+  };
   return (
-    <div className="App">
-      <MapComponent
+    <>
+      <div>
+        {currentLonLat.lon} {currentLonLat.lat}
+      </div>
+      <div className="App">
+        <MapComponent
+          map={map}
+          />
+      <SimpleButton
+        style={{position: 'fixed', top: '30px', right: '30px'}}
+        onClick={toggleDrawer}
+        icon="bars"
+      />
+      <Drawer
+        title="isitbusyornot?"
+        placement="right"
+        onClose={toggleDrawer}
+        visible={visible}
+        mask={false}
+      >
+      {/*need to get search value from input & send to twitter api - source code: https://github.com/terrestris/react-geo/blob/master/src/Field/NominatimSearch/NominatimSearch.tsx  - somehow pass "searchTerm" state on line 178 (inside link) and pass it on*/}
+
+      <NominatimSearch
+        countrycodes="gb"
+        placeholder="isitbusyornot...?"
+        key="search"
         map={map}
-        />
-     <SimpleButton
-       style={{position: 'fixed', top: '30px', right: '30px'}}
-       onClick={toggleDrawer}
-       icon="bars"
-     />
-     <Drawer
-       title="isitbusyornot?"
-       placement="right"
-       onClose={toggleDrawer}
-       visible={visible}
-       mask={false}
-     >
-     {/*need to get search value from input & send to twitter api - source code: https://github.com/terrestris/react-geo/blob/master/src/Field/NominatimSearch/NominatimSearch.tsx  - somehow pass "searchTerm" state on line 178 (inside link) and pass it on*/}
+        onSelect={({ lon, lat, ...selected }, olMap) => {
+          if (selected && selected.boundingbox) {
+            var olView = olMap.getView();
+            var extent = [
+              selected.boundingbox[2],
+              selected.boundingbox[0],
+              selected.boundingbox[3],
+              selected.boundingbox[1],
+            ];
+            extent = extent.map(function (coord) {
+              return parseFloat(coord);
+            });
+            extent = (0, _proj.transformExtent)(
+              extent,
+              "EPSG:4326",
+              olView.getProjection().getCode()
+            );
+            olView.fit(extent, {
+              duration: 500,
+            });
+          }
 
-       <NominatimSearch
-         countrycodes="gb"
-         placeholder="isitbusyornot...?"
-         key="search"
-         map={map}
-         addressdetails="4"
-         format="geojson"
-       />
-
-       {/*may need to use reverse geocoding: https://nominatim.org/release-docs/develop/api/Reverse/*/}
-
-       {/* value output when searching is osm_id*/}
+          setCurrentLonLat({ lon, lat });
+        }}
+      />
+      
       </Drawer>
-    </div>
+      </div>
+    </>
   );
 }
 export default App;
