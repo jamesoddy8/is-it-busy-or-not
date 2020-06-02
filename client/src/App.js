@@ -66,10 +66,12 @@ function App() {
          key="search"
          map={map}
          addressdetails="4"
+         format="geojson"
        />
 
        {/*may need to use reverse geocoding: https://nominatim.org/release-docs/develop/api/Reverse/*/}
-         
+
+       {/* value output when searching is osm_id*/}
       </Drawer>
     </div>
   );
