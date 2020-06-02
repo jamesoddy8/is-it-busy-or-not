@@ -65,11 +65,13 @@ function App() {
          placeholder="isitbusyornot...?"
          key="search"
          map={map}
-         format="json"
+         addressdetails="4"
        />
+
+       {/*may need to use reverse geocoding: https://nominatim.org/release-docs/develop/api/Reverse/*/}
+         
       </Drawer>
     </div>
   );
 }
-
 export default App;
