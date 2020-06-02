@@ -2,13 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import DisplayMap from './DisplayMap';
+// import DisplayMap from './DisplayMap';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
-    <DisplayMap />
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -18,7 +18,7 @@ const layer = new OlLayerTile({
   source: new OlSourceOsm()
 });
 
-const center = [ 788453.4890155146, 6573085.729161344 ];
+const center = [ 51282, 1654 ];
 
 const map = new OlMap({
   view: new OlView({
