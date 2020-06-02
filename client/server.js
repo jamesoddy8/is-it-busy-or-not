@@ -30,7 +30,7 @@ app.get('/test_connection', (req, res) => {
 
 // GET route example for twitter
 app.get('/twitter_test', (req, res) => {
-  twitterClient.get('search/tweets', {q: 'node.js'}, function(error, tweets, response) {
+  twitterClient.get('search/tweets', { q: ' ', geocode: '51.5072682,-0.1657303,0.9km', count: 100, result_type: "recent" }, function(error, tweets, response) {
   res.send({express: tweets});
   });
 });
