@@ -1,4 +1,4 @@
- // docs: https://terrestris.github.io/react-geo-ws/map-integration/nominatim-search.html
+ // document for react-geo: https://terrestris.github.io/react-geo-ws/map-integration/nominatim-search.html
 
 import React, { useState } from 'react';
 
