@@ -46,6 +46,20 @@ class Smokey extends Component {
     return body;
   };
 
+  //function that filters tweetdata by date and counts how many tweets on the day.
+  handleFilterArray(){
+    var data = this.state.tweetData.statuses
+    var acc = 0
+    var currentDate = new Date()
+    for (var i = 0; i < data.length; i++){
+      var tweetDate = (new Date(data[i].created_at))
+      if(tweetDate.getDate() === currentDate.getDate()){
+        acc++
+      }
+    }
+    console.log(acc)
+  }
+
   // Sort Tweet response
   // tweetNum = async () => {
   //   console.log(this.state.tweetData.statuses.size)
