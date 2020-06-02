@@ -39,8 +39,18 @@ const map = new OlMap({
 });
 
 function App() {
+
   const [visible, setVisible] = useState(false);
   const [currentLonLat, setCurrentLonLat] = useState({ lon: "0", lat: "0" });
+
+  useEffect(() => { 
+    console.log(currentLonLat)
+    fetch('/client/App', {
+      method:'POST',
+      body:JSON.stringify(currentLonLat)
+    })
+
+   }, [currentLonLat]);
 
   const toggleDrawer = () => {
   setVisible(!visible);

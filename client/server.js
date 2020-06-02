@@ -28,6 +28,11 @@ app.get('/test_connection', (req, res) => {
   res.send({ express: 'Express is running and connected to React' });
 });
 
+// send coordinates
+app.post('/client/App', function (req, res) { 
+  console.log(req.body);
+  res.send('POST request to the homepage') })
+
 // GET route example for twitter
 app.get('/twitter_test', (req, res) => {
   twitterClient.get('search/tweets', { q: ' ', geocode: '51.5072682,-0.1657303,0.9km', count: 100, result_type: "recent" }, function(error, tweets, response) {
