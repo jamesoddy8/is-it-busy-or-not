@@ -64,7 +64,6 @@ function App() {
         visible={visible}
         mask={false}
       >
-      {/*need to get search value from input & send to twitter api - source code: https://github.com/terrestris/react-geo/blob/master/src/Field/NominatimSearch/NominatimSearch.tsx  - somehow pass "searchTerm" state on line 178 (inside link) and pass it on*/}
 
       <NominatimSearch
         countrycodes="gb"
