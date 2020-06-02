@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-
-class Twitter extends Component {
+class Smokey extends Component {
   constructor(props){
     super(props)
     this.state={
@@ -57,27 +54,10 @@ class Twitter extends Component {
   // Main body
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-        </p>
-          <div>
-            <button type="button" className="nobtn" onClick={() => this.handleFetchTweets()}>Grab tweets</button>
-          </div>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-        </a>
-        </header>
-      </div>
+      <>
+      </>
     )
   }
 }
 
-export default Twitter;
+export default Smokey;
