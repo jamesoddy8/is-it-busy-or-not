@@ -1,6 +1,7 @@
  // document for react-geo: https://terrestris.github.io/react-geo-ws/map-integration/nominatim-search.html
 
 import React, { useState, useEffect } from 'react';
+import Twitter from 'Twitter';
 
 import OlMap from 'ol/Map';
 import OlView from 'ol/View';
@@ -52,6 +53,8 @@ function App() {
         <MapComponent
           map={map}
           />
+        <Twitter
+          />
       <SimpleButton
         style={{position: 'fixed', top: '30px', right: '30px'}}
         onClick={toggleDrawer}
@@ -95,7 +98,7 @@ function App() {
           setCurrentLonLat({ lon, lat });
         }}
       />
-      
+
       </Drawer>
       </div>
     </>
