@@ -4,6 +4,12 @@ import './App.css';
 
 
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.state={
+      tweetData: 1
+    }
+  }
 
   componentDidMount() {
     // Call our fetch function below once the component mounts
@@ -29,18 +35,24 @@ class App extends Component {
       .then(
         res => this.setState({ tweetData: res.express })
       )
+
+      console.log(this.state.tweetData.statuses)
   };
 
-  // Calls the Express endpoint 
+  // Calls the Express endpoint
   fetchTweets = async () => {
     const response = await fetch('/twitter_test');
     const body = await response.json();
-
     if (response.status !== 200) {
       throw Error(body.message)
     }
     return body;
   };
+
+  // Sort Tweet response
+  // tweetNum = async () => {
+  //   console.log(this.state.tweetData.statuses.size)
+  // };
 
   // Main body
   render() {
