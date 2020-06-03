@@ -60,19 +60,13 @@ function App() {
         var acc = 0
         var hourAgo = new Date().getTime() - 3600000
         console.log(hourAgo, "hour ago")
-        // var currentTime = `${currentDate.getHours()}` + `${('0'+currentDate.getMinutes()).slice(-2)}`
-        // console.log(currentTime)
-
-        // currentTime = Number(currentTime)
-        // console.log(currentTime)
+      
         console.log(patch)
         for (var i = 0; i < patch.length; i++){
           var tweetDate = (new Date(patch[i].created_at))
           console.log(tweetDate.getTime(), "tweet date")
           if(tweetDate.getTime() > hourAgo){
-            // var tweetTime = `${tweetDate.getHours()}` + `${('0'+ tweetDate.getMinutes()).slice(-2)}`
-            // tweetTime = Number(tweetTime)
-            // console.log(tweetTime)
+         
             acc++
           }
           else{
