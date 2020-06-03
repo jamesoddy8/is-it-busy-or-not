@@ -44,13 +44,21 @@ function App() {
   const [currentLonLat, setCurrentLonLat] = useState({ lon: "0", lat: "0" });
 
   useEffect(() => { 
-    console.log(currentLonLat)
+    // console.log(currentLonLat)
     fetch('/client/App', {
       method:'POST',
+      headers:{'Content-Type':'application/json'},
       body:JSON.stringify(currentLonLat)
     })
-
-   }, [currentLonLat]);
+    .then(response => { 
+        if (response.ok) { 
+          return(response.json()) ;
+        }
+      }) .then(data => {
+        console.log('test')
+      console.log(data) ;
+      }) 
+     }, [currentLonLat]);
 
   const toggleDrawer = () => {
   setVisible(!visible);

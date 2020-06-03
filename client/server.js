@@ -3,6 +3,9 @@ const path = require('path');
 const app = express();
 app.use(express.static(path.join(__dirname, 'build')));
 
+const bodyParser = require('body-parser')
+app.use(bodyParser.json());
+
 // Instantiate Twitter
 const Twitter = require('twitter');
 const twitterClient = new Twitter({
@@ -28,14 +31,26 @@ app.get('/test_connection', (req, res) => {
   res.send({ express: 'Express is running and connected to React' });
 });
 
+// GET route example for twitter
+function askTwitter(location) {
+  var patch;
+  twitterClient.get('search/tweets', { q: ' ', geocode: location, count: 100, result_type: "recent" }, function(error, tweets, response) {
+    patch = {greeting:'hello'};
+  });
+  return {greeting:'hello'};
+}
+
 // send coordinates
 app.post('/client/App', function (req, res) { 
   console.log(req.body);
-  res.send('POST request to the homepage') })
-
-// GET route example for twitter
-app.get('/twitter_test', (req, res) => {
-  twitterClient.get('search/tweets', { q: ' ', geocode: '51.5072682,-0.1657303,0.9km', count: 100, result_type: "recent" }, function(error, tweets, response) {
-  res.send({express: tweets});
-  });
-});
+  var location = `${req.body.lat},${req.body.lon},0.9km`
+  twitterClient.get('search/tweets', {
+    q: ' ', geocode: location, count: 100, result_type: "recent"
+  },
+  function(error, tweets, response) {
+    res.send({express: tweets});
+  // var tweets = askTwitter(location)
+  // console.log(tweets)
+  // res.send(tweets) 
+  })
+})
