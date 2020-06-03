@@ -55,8 +55,18 @@ function App() {
           return(response.json()) ;
         }
       }) .then(data => {
+        var patch = data.express.statuses
+        var acc = 0
+        var currentDate = new Date()
+        console.log(patch)
+        for (var i = 0; i < patch.length; i++){
+          var tweetDate = (new Date(patch[i].created_at))
+          if(tweetDate.getDay() === currentDate.getDay()){
+            acc++
+          }
+        }
+        console.log(acc)
         console.log('test')
-      console.log(data) ;
       }) 
      }, [currentLonLat]);
 
