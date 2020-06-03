@@ -42,6 +42,7 @@ function App() {
 
   const [visible, setVisible] = useState(false);
   const [currentLonLat, setCurrentLonLat] = useState({ lon: "0", lat: "0" });
+  const [numTweet, setnumTweet] = useState(0);
 
   useEffect(() => { 
     // console.log(currentLonLat)
@@ -65,8 +66,7 @@ function App() {
             acc++
           }
         }
-        console.log(acc)
-        console.log('test')
+          setnumTweet(acc);
       }) 
      }, [currentLonLat]);
 
@@ -75,9 +75,6 @@ function App() {
   };
   return (
     <>
-      <div>
-        {currentLonLat.lon} {currentLonLat.lat}
-      </div>
       <div className="App">
         <MapComponent
           map={map}
