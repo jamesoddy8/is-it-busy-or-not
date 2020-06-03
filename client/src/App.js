@@ -101,9 +101,10 @@ function App() {
         visible={visible}
         mask={false}
       >
-      <div>
-        Tweets in the last hour: <b>{numTweet}</b>
-      </div>
+        <div>
+        Where do you want to go?
+        </div>
+      
       <NominatimSearch
         countrycodes="gb"
         placeholder="isitbusyornot...?"
@@ -134,6 +135,11 @@ function App() {
           setCurrentLonLat({ lon, lat });
         }}
       />
+      <hr/>
+
+      <div>
+        Tweets in the last hour: <b>{numTweet}</b>
+      </div>
 
       </Drawer>
       </div>
