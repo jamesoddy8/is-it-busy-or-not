@@ -87,13 +87,16 @@ function App() {
         icon="bars"
       />
       <Drawer
+
         title="isitbusyornot?"
         placement="right"
         onClose={toggleDrawer}
         visible={visible}
         mask={false}
       >
-
+      <div>
+        {numTweet}
+      </div>
       <NominatimSearch
         countrycodes="gb"
         placeholder="isitbusyornot...?"
