@@ -58,12 +58,19 @@ function App() {
       }) .then(data => {
         var patch = data.express.statuses
         var acc = 0
-        var currentDate = new Date()
+        var hourAgo = new Date().getTime() - 3600000
+        console.log(hourAgo, "hour ago")
+      
         console.log(patch)
         for (var i = 0; i < patch.length; i++){
           var tweetDate = (new Date(patch[i].created_at))
-          if(tweetDate.getDay() === currentDate.getDay()){
+          console.log(tweetDate.getTime(), "tweet date")
+          if(tweetDate.getTime() > hourAgo){
+         
             acc++
+          }
+          else{
+            break
           }
         }
           setnumTweet(acc);
@@ -94,9 +101,10 @@ function App() {
         visible={visible}
         mask={false}
       >
-      <div>
-        {numTweet}
-      </div>
+        <div>
+        Where do you want to go?
+        </div>
+      
       <NominatimSearch
         countrycodes="gb"
         placeholder="isitbusyornot...?"
@@ -127,6 +135,11 @@ function App() {
           setCurrentLonLat({ lon, lat });
         }}
       />
+      <hr/>
+
+      <div>
+        Tweets in the last hour: <b>{numTweet}</b>
+      </div>
 
       </Drawer>
       </div>
