@@ -62,7 +62,6 @@ function App() {
         console.log(patch)
         for (var i = 0; i < patch.length; i++){
           var tweetDate = (new Date(patch[i].created_at))
-          console.log(tweetDate.getHours())
           if(tweetDate.getHours() === currentDate.getHours()){
             acc++
           }
