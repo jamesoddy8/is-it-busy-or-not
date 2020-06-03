@@ -21,7 +21,7 @@
     "server": "node server.js",
     "dev": "concurrently --kill-others-on-fail \"npm server\" \"npm client\"",
     "dev:server": "cd client && npm build && cd .. && npm start",
-    "start": "react-scripts start",
+    "start": "node server.js",
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "eslintConfig": {
