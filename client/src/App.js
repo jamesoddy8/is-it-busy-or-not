@@ -1,6 +1,8 @@
- // document for react-geo: https://terrestris.github.io/react-geo-ws/map-integration/nominatim-search.html
+
+// document for react-geo: https://terrestris.github.io/react-geo-ws/map-integration/nominatim-search.html
 
 import React, { useState, useEffect } from 'react';
+import Smokey from './Smokey';
 
 import OlMap from 'ol/Map';
 import OlView from 'ol/View';
@@ -37,20 +39,47 @@ const map = new OlMap({
 });
 
 function App() {
+
   const [visible, setVisible] = useState(false);
   const [currentLonLat, setCurrentLonLat] = useState({ lon: "0", lat: "0" });
+  const [numTweet, setnumTweet] = useState(0);
+
+  useEffect(() => { 
+    // console.log(currentLonLat)
+    fetch('/client/App', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(currentLonLat)
+    })
+    .then(response => { 
+        if (response.ok) { 
+          return(response.json()) ;
+        }
+      }) .then(data => {
+        var patch = data.express.statuses
+        var acc = 0
+        var currentDate = new Date()
+        console.log(patch)
+        for (var i = 0; i < patch.length; i++){
+          var tweetDate = (new Date(patch[i].created_at))
+          if(tweetDate.getDay() === currentDate.getDay()){
+            acc++
+          }
+        }
+          setnumTweet(acc);
+      }) 
+     }, [currentLonLat]);
 
   const toggleDrawer = () => {
   setVisible(!visible);
   };
   return (
     <>
-      <div>
-        {currentLonLat.lon} {currentLonLat.lat}
-      </div>
       <div className="App">
         <MapComponent
           map={map}
+          />
+        <Smokey
           />
       <SimpleButton
         style={{position: 'fixed', top: '30px', right: '30px'}}
@@ -58,13 +87,16 @@ function App() {
         icon="bars"
       />
       <Drawer
+
         title="isitbusyornot?"
         placement="right"
         onClose={toggleDrawer}
         visible={visible}
         mask={false}
       >
-
+      <div>
+        {numTweet}
+      </div>
       <NominatimSearch
         countrycodes="gb"
         placeholder="isitbusyornot...?"
@@ -95,7 +127,7 @@ function App() {
           setCurrentLonLat({ lon, lat });
         }}
       />
-      
+
       </Drawer>
       </div>
     </>
